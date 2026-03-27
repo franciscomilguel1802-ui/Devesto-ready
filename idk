@@ -1,6 +1,10 @@
 -- 89392828628286
 
 loadstring(game:HttpGet("https://rawscripts.net/raw/UP-Just-a-baseplate.-Reanimate-script-V4-limb-114114"))()
+wait(2)
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/franciscomilguel1802-ui/Devesto-v1/refs/heads/main/dihvesto"))()
+wait(2)
 local player = game.Players.LocalPlayer
 local char = player.Character
 _G.loop = true
@@ -51,7 +55,7 @@ local Align = function(Part0, Part1, Mesh)
                 timeSinceChange = 0
             end
             local mag = (Part0.Position - (Part1.CFrame * Attachments.Attach0.CFrame:Inverse()).Position).Magnitude
-            if mag >= 5 thaen
+            if mag >= 5 then
                 Part0.CFrame = Part1.CFrame * Attachments.Attach0.CFrame:Inverse()
             end
             local relative_cf = CFrame.new(0, -1.4, 0) * CFrame.Angles(angleX, angleY, angleZ)
@@ -65,6 +69,3 @@ end
 local hat = Align(char['Accessory (MeshPartAccessory)'].Handle, char['Right Arm'], false)
 local cf = char['Right Arm'].CFrame * CFrame.new(0, -1.4, 0) * CFrame.Angles(math.rad(0), math.rad(0), 0)
 hat[1].CFrame = cf:Inverse() * char['Right Arm'].CFrame
-wait(2)
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/franciscomilguel1802-ui/Devesto-v1/refs/heads/main/dihvesto"))()
