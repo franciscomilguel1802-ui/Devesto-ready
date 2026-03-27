@@ -1,0 +1,70 @@
+-- 89392828628286
+
+loadstring(game:HttpGet("https://rawscripts.net/raw/UP-Just-a-baseplate.-Reanimate-script-V4-limb-114114"))()
+local player = game.Players.LocalPlayer
+local char = player.Character
+_G.loop = true
+local Align = function(Part0, Part1, Mesh)
+    local Aligns = {
+        AlignOrientation = Instance.new("AlignOrientation", Part0),
+        AlignPosition = Instance.new("AlignPosition", Part0)
+    }
+    
+    local Attachments = {
+        Attach0 = Instance.new("Attachment", Part0),
+        Attach1 = Instance.new("Attachment", Part1)
+    }
+    local m = Part0:FindFirstChildOfClass('SpecialMesh')
+    if Mesh and m then
+        m:Destroy()
+    end
+    Part0:BreakJoints()
+    Aligns.AlignOrientation.Attachment0 = Attachments.Attach0
+    Aligns.AlignOrientation.Attachment1 = Attachments.Attach1
+    Aligns.AlignOrientation.Responsiveness = math.huge
+    Aligns.AlignOrientation.RigidityEnabled = true
+    
+    Aligns.AlignPosition.Attachment0 = Attachments.Attach0
+    Aligns.AlignPosition.Attachment1 = Attachments.Attach1
+    Aligns.AlignPosition.Responsiveness = math.huge
+    Aligns.AlignPosition.RigidityEnabled = true
+    Aligns.AlignPosition.MaxForce = 999999999
+    spawn(function()
+        local angleX, angleY, angleZ = 0, 0, 0
+        local speedX, speedY, speedZ = math.random(-40, 40), math.random(-40, 40), math.random(-40, 40)
+        local lastTime = tick()
+        local timeSinceChange = 0
+        local changeInterval = 0.5 + math.random() * 2.5
+        while _G.loop do
+            local currentTime = tick()
+            local dt = currentTime - lastTime
+            lastTime = currentTime
+            angleX = angleX + math.rad(speedX * dt)
+            angleY = angleY + math.rad(speedY * dt)
+            angleZ = angleZ + math.rad(speedZ * dt)
+            timeSinceChange = timeSinceChange + dt
+            if timeSinceChange >= changeInterval then
+                speedX = math.random(-40, 40)
+                speedY = math.random(-40, 40)
+                speedZ = math.random(-40, 40)
+                changeInterval = 0.5 + math.random() * 2.5
+                timeSinceChange = 0
+            end
+            local mag = (Part0.Position - (Part1.CFrame * Attachments.Attach0.CFrame:Inverse()).Position).Magnitude
+            if mag >= 5 thaen
+                Part0.CFrame = Part1.CFrame * Attachments.Attach0.CFrame:Inverse()
+            end
+            local relative_cf = CFrame.new(0, -1.4, 0) * CFrame.Angles(angleX, angleY, angleZ)
+            Attachments.Attach0.CFrame = relative_cf:Inverse()
+            Part0.Velocity = Vector3.new(0, 35, 0)
+            game:GetService("RunService").Heartbeat:Wait()
+        end
+    end)
+    return {Attachments.Attach0, Attachments, Aligns}
+end
+local hat = Align(char['Accessory (MeshPartAccessory)'].Handle, char['Right Arm'], false)
+local cf = char['Right Arm'].CFrame * CFrame.new(0, -1.4, 0) * CFrame.Angles(math.rad(0), math.rad(0), 0)
+hat[1].CFrame = cf:Inverse() * char['Right Arm'].CFrame
+wait(2)
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/franciscomilguel1802-ui/Devesto-v1/refs/heads/main/dihvesto"))()
